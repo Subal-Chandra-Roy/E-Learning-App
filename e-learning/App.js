@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
+import LoginScreen from './App/Screen/LoginScreen';
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
     'outfit': require('./assets/fonts/Outfit-Regular.ttf'),
@@ -9,8 +10,7 @@ export default function App() {
   });
   return (
     <View style={styles.container}>
-      <Text style={{fontFamily:'outfit-bold'}}>Welcome to e-learning!</Text>
-      <StatusBar style="auto" />
+      <LoginScreen/>
     </View>
   );
 }
@@ -19,7 +19,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
