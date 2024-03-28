@@ -42,7 +42,7 @@ export default function LoginScreen() {
         onPress={onPress}
         style={styles.button}>
             <Image source={google} style={{width:40, height:40}}/>
-            <Text style={styles.buttonText}>Sign In with google</Text>
+            <Text style={styles.buttonText}>Sign In with Google</Text>
         </TouchableOpacity>
       </View>
     </View>
