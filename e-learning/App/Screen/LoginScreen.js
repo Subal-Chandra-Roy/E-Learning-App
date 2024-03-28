@@ -6,8 +6,31 @@ import Colors from '../Utils/Colors';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 import google from './../../assets/images/google.png'
+import * as WebBrowser from "expo-web-browser";
+import { useOAuth } from "@clerk/clerk-expo";
+import { useWarmUpBrowser } from "../../hooks/useWarmUpBrowser";
+WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
+
+    useWarmUpBrowser();
+ 
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+ 
+  const onPress = React.useCallback(async () => {
+    try {
+      const { createdSessionId, signIn, signUp, setActive } =
+        await startOAuthFlow();
+ 
+      if (createdSessionId) {
+        setActive({ session: createdSessionId });
+      } else {
+        // Use signIn or signUp for next steps such as MFA
+      }
+    } catch (err) {
+      console.error("OAuth error", err);
+    }
+  }, []);
   return (
     <View style = {styles.container}>
       <Image source={welcome}
@@ -15,7 +38,9 @@ export default function LoginScreen() {
       <View style={styles.box}>
         <Text style={styles.boxText1}>E-LEARNING</Text>
         <Text style={styles.boxText2}>Your ultimate learning Application</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity 
+        onPress={onPress}
+        style={styles.button}>
             <Image source={google} style={{width:40, height:40}}/>
             <Text style={styles.buttonText}>Sign In with google</Text>
         </TouchableOpacity>
@@ -32,16 +57,17 @@ const styles = StyleSheet.create({
     },
     welcomeImage:{
         width:250,
-        height:500,
-        marginTop:70,
-        objectFit:'contain'
+        height:windowHeight*.6,
+        objectFit:'contain',
+        marginTop:60
     },
     box:{
         height:windowHeight,
         width:windowWidth,
         backgroundColor:Colors.PRIMARY,
-        marginTop:-80,
-        padding:20
+        marginTop:-60,
+        padding:20,
+        borderRadius:100
     },
     boxText1:{
         textAlign:'center', 
@@ -72,5 +98,4 @@ const styles = StyleSheet.create({
         fontFamily:'outfit', 
         color:Colors.PRIMARY
     }
-
 })
