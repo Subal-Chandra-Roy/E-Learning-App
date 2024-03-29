@@ -30,7 +30,9 @@ export default function CourseList({level}) {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({item})=>(
-          <TouchableOpacity onPress={()=>navigation.navigate('CourseDetail')}>
+          <TouchableOpacity onPress={()=>navigation.navigate('CourseDetail',{
+            course:item
+          })}>
             <View style={{padding:10, backgroundColor:Colors.WHITE, marginRight:15, marginBottom:10, borderRadius:15}}>
               <Image source={{uri:item?.banner?.url}}
               style={{width:210, height:110, borderRadius:5}}
