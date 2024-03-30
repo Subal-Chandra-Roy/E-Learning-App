@@ -2,8 +2,9 @@ import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
 import React from "react";
 import Colors from "../../Utils/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import { enrollCourse } from "../../Services";
 
-export default function DetailSection({ course }) {
+export default function DetailSection({ course,enrollCourse }) {
   return (
     <View
       style={{ padding: 10, borderRadius: 15, backgroundColor: Colors.WHITE }}
@@ -91,7 +92,9 @@ export default function DetailSection({ course }) {
             <Text style={{fontFamily:'outfit', color:'gray', lineHeight:20, textAlign:"justify"}}>{course.description.markdown}</Text>   
         </View>
         <View style={{display:'flex', flexDirection:'row', gap:5, justifyContent:'space-evenly'}}>
-            <TouchableOpacity style={{backgroundColor:Colors.PRIMARY, borderRadius:15, justifyContent:'center', alignItems:'center', padding:15}}>
+            <TouchableOpacity 
+            onPress={()=>enrollCourse()}
+            style={{backgroundColor:Colors.PRIMARY, borderRadius:15, justifyContent:'center', alignItems:'center', padding:15}}>
                 <Text style={{fontFamily:'outfit', color:Colors.WHITE, textAlign:"center", fontSize:14}}> Enroll for free</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{backgroundColor:Colors.PRIMARY, borderRadius:15, justifyContent:'center', alignItems:'center', padding:15}}>
