@@ -3,8 +3,9 @@ import React from "react";
 import Colors from "../../Utils/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { enrollCourse } from "../../Services";
+import { getUserEnrolledCourses } from "../../Services";
 
-export default function DetailSection({ course,enrollCourse }) {
+export default function DetailSection({ course,enrollCourse, userEnrolledCourse }) {
   return (
     <View
       style={{ padding: 10, borderRadius: 15, backgroundColor: Colors.WHITE }}
@@ -12,7 +13,7 @@ export default function DetailSection({ course,enrollCourse }) {
       <Image
         source={{ uri: course?.banner?.url }}
         style={{
-          width: Dimensions.get("screen").width * 0.83,
+          width: Dimensions.get("screen").width * 0.92,
           height: 190,
           borderRadius: 10,
         }}
@@ -92,11 +93,12 @@ export default function DetailSection({ course,enrollCourse }) {
             <Text style={{fontFamily:'outfit', color:'gray', lineHeight:20, textAlign:"justify"}}>{course.description.markdown}</Text>   
         </View>
         <View style={{display:'flex', flexDirection:'row', gap:5, justifyContent:'space-evenly'}}>
-            <TouchableOpacity 
+            
+            {userEnrolledCourse?.length==0?<TouchableOpacity 
             onPress={()=>enrollCourse()}
             style={{backgroundColor:Colors.PRIMARY, borderRadius:15, justifyContent:'center', alignItems:'center', padding:15}}>
                 <Text style={{fontFamily:'outfit', color:Colors.WHITE, textAlign:"center", fontSize:14}}> Enroll for free</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>:null}
             <TouchableOpacity style={{backgroundColor:Colors.PRIMARY, borderRadius:15, justifyContent:'center', alignItems:'center', padding:15}}>
                 <Text style={{fontFamily:'outfit', color:Colors.WHITE, textAlign:"center", fontSize:14}}> Membership $2.99/month</Text>
             </TouchableOpacity>

@@ -73,3 +73,22 @@ export const enrollCourse = async (courseId, userEmail) => {
   const result = await request(MASTER_URL, mutationQuery);
   return result;
 };
+
+  export const getUserEnrolledCourses=async(courseId, userEmail)=>{
+    const query = gql`
+    query GetUserEnrolledCourses {
+      userEnrolledCourses(
+        where: {courseId: "`+courseId+`", userEmail: "`+userEmail+`"}
+      ) {
+        id
+        courseId
+        completedChapter {
+          chapterId
+        }
+      }
+    }
+    
+    `
+    const result = await request(MASTER_URL, query);
+    return result;
+  };

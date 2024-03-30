@@ -4,7 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import Colors from '../../Utils/Colors';
 
-export default function ChapterSection({chapterList}) {
+
+export default function ChapterSection({chapterList, userEnrolledCourse}) {
   return (
     <View style={{backgroundColor:Colors.WHITE, padding:10, marginTop:15, borderRadius:15}}>
       <Text style={{fontFamily:'outfit-medium', fontSize:22}}>Chapters</Text>
@@ -15,7 +16,11 @@ export default function ChapterSection({chapterList}) {
             <Text style={{fontFamily:'outfit', fontSize:21, color:'gray'}}>{item.title}</Text>
           </View>
           <View>
+          {userEnrolledCourse.length == 0?
           <FontAwesome name="lock" size={25} color='gray' />
+          :
+          <FontAwesome name="play-circle" size={25} color='gray' />
+         }
           </View>
         </View>
       ))}
