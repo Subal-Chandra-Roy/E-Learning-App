@@ -13,21 +13,23 @@ import Colors from "../../Utils/Colors";
 import { useNavigation } from "@react-navigation/native";
 //import { ScrollView } from "react-native-gesture-handler";
 
-export default function Content({ content }) {
+export default function Content({ content, onChapterFinish }) {
   let contentRef;
   const navigation = useNavigation();
   const [activeIndex, setActiveIndex] = useState(0);
-  const onNextBtnPress = (index) => {
-    if (content?.length <= index + 1) {
-      navigation.goBack();
+  const onNextBtnPress = () => {
+    if (content?.length <= activeIndex + 1) {
+      //navigation.goBack();
+      onChapterFinish()
       return;
     }
-    setActiveIndex(index + 1);
-    contentRef.scrollToIndex({ animated: true, index: index + 1 });
+    setActiveIndex(activeIndex + 1);
+    contentRef.scrollToIndex({ animated: true, index: activeIndex + 1 });
   };
   return (
     <View>
       <ProgressBar contentLength={content?.length} contentIndex={activeIndex} />
+      <ScrollView>
       <FlatList
         data={content}
         horizontal={true}
@@ -40,7 +42,7 @@ export default function Content({ content }) {
           <View style={{ width: Dimensions.get("screen").width, padding: 20 }}>
             <Text style={{ fontFamily: "outfit-medium", fontSize: 22 }}>
               {item.heading}
-            
+
             </Text>
             <ContentItem
               description={item?.description?.html}
@@ -61,12 +63,12 @@ export default function Content({ content }) {
                 {content?.length > index + 1 ? "Next" : "Finish"}
               </Text>
             </TouchableOpacity>
-            
+
           </View>
 
         )}
       />
-      
+    </ScrollView>
     </View>
   );
 }

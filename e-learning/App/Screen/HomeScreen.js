@@ -9,16 +9,18 @@ export default function HomeScreen() {
 
   
   return (
-    <View>
+    <ScrollView>
         <View style={{backgroundColor:Colors.PRIMARY, height:250, padding:20 }}>
             <Header/>
         </View>
+
         <View style={{padding:20, marginTop:-90}}>
           <CourseList level={'Basic'}/>
           <CourseList level={'Advance'}/>
         </View>
+      
           
       
-    </View>
+    </ScrollView>
   )
 }

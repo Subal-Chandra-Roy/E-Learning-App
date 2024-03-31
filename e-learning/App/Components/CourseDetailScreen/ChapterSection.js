@@ -8,14 +8,16 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function ChapterSection({chapterList, userEnrolledCourse}) {
   const navigation=useNavigation();
-  const OnChapterPress=(content)=>{
+  const OnChapterPress=(chapter)=>{
     if(userEnrolledCourse.length==0){
       ToastAndroid.show('Please Enroll the course!!', ToastAndroid.LONG)
       return
     }
     else{
       navigation.navigate('chapter-content', {
-        content:content
+        content:chapter.content,
+        chapterId:chapter.id,
+        userCourseRecordId:userEnrolledCourse[0]?.id
       })
     }
   }
@@ -24,7 +26,7 @@ export default function ChapterSection({chapterList, userEnrolledCourse}) {
       <Text style={{fontFamily:'outfit-medium', fontSize:22}}>Chapters</Text>
       {chapterList.map((item, index)=>(
         <TouchableOpacity style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', padding:10, borderWidth:1, borderRadius:10, marginTop:10, borderColor:'gray'}}
-        onPress={()=>OnChapterPress(item.content)}
+        onPress={()=>OnChapterPress(item)}
         >
           <View style={{display:'flex', flexDirection:'row', alignItems:'center', gap:10}}>
             <Text style={{fontFamily:'outfit-medium', fontSize:27, color:'gray'}}>{index+1}</Text>
